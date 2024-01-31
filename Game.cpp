@@ -26,6 +26,10 @@ void Game::Tick() {
 	EndDrawing();
 }
 
+bool Game::CollisionDetection(Coords& ball, Coords& paddle) {
+	return false;
+}
+
 
 void Game::Draw(Ball* ball, Paddle* leftPaddle, Paddle* rightPaddle) {
 	ball->Draw();

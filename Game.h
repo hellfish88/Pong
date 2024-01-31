@@ -16,7 +16,7 @@ public:
 	/// 
 
 	void Tick();
-	bool CollisionDetectoin();
+	bool CollisionDetection(Coords&, Coords&);
 
 	bool GameShouldClose() const { return WindowShouldClose(); }
 private:
