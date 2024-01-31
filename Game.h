@@ -5,6 +5,7 @@
 #include "Ball.h"
 #include <memory>
 #include "Paddel.h"
+#include "Coords.h"
 
 class Game {
 	//friend class Ball;
@@ -15,6 +16,7 @@ public:
 	/// 
 
 	void Tick();
+	bool CollisionDetectoin();
 
 	bool GameShouldClose() const { return WindowShouldClose(); }
 private:
@@ -23,7 +25,7 @@ private:
 	void Draw(Ball* ball, Paddle* leftPaddle, Paddle* RightPaddle);
 	int screenWidth;
 	int screenHeight;
-	std::string hejsan = "Kanya <3";
+	std::string hejsan = "Fisk";
 	std::string title;
 	std::shared_ptr<Ball> ball;
 	std::shared_ptr<Paddle> leftPaddle;

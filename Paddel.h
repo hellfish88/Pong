@@ -1,5 +1,6 @@
 #pragma once
 #include "raylib.h"
+#include "Coords.h"
 
 class Paddle {
 private:

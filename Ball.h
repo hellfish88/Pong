@@ -1,4 +1,6 @@
 #pragma once
+#include "raylib.h"
+#include "Coords.h"
 
 class Ball {
 
@@ -7,17 +9,16 @@ private:
 	int speedX;
 	int speedY;
 	int radius;
-	bool exists = false;
+	Coords coords;
 public:
 	int GetPosX() const;
 	int GetPosY() const;
-	int GetRadius() const { return radius; }
+	int GetRadius() const { return coords.radius; }
 	void SetPosX(int);
 	void SetPosY(int);
 	void SetSpeedX(int);
 	void SetSpeedY(int);
-	Ball(int posX, int posY, int rad);
+	Ball(Coords);
 	void Update();
 	void Draw() const;
-	bool Exists() const { return exists; }
 };

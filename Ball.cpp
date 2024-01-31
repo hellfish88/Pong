@@ -1,19 +1,19 @@
 #include "Ball.h"
-#include "raylib.h"
+
 int Ball::GetPosX() const {
-    return posX;
+    return coords.x;
 }
 
 int Ball::GetPosY() const {
-    return posY;
+    return coords.y;
 }
 
 void Ball::SetPosX(int pos) {
-    posX += pos;
+    coords.x += pos;
 }
 
 void Ball::SetPosY(int pos) {
-    posY += pos;
+    coords.y += pos;
 }
 
 void Ball::SetSpeedX(int x) {
@@ -24,15 +24,15 @@ void Ball::SetSpeedY(int y) {
     speedY *= y;
 }
 
-Ball::Ball(int posX, int posY, int rad) :
-    posX(posX), posY(posY), radius(rad), speedX(7), speedY(7){
-    //DrawCircle(posX, posY, rad, WHITE);
-    exists = true;
+Ball::Ball(Coords coords_val) :
+    //coords.x(coords.x), coords.y(coords.y), coords.radius(coords.radius), speedX(7), speedY(7){
+    coords(coords_val), speedX(7), speedY(7){
+    //DrawCircle(coords.x, posY, rad, WHITE);
 }
 
 void Ball::Update() {
 
-        //if (GetPosX() + radius >= GetScreenWidth() || GetPosX() - radius <= 0) {
+        //if (Getcoords.x() + radius >= GetScreenWidth() || Getcoords.x() - radius <= 0) {
         //    speedX *= -1;
         //}
         //if (GetPosY() + radius >= GetScreenHeight() || GetPosY() - radius <= 0) {
@@ -45,5 +45,5 @@ void Ball::Update() {
 }
 
 void Ball::Draw() const {
-    DrawCircle(this->GetPosX(), this->GetPosY(), radius, WHITE);
+    DrawCircle(this->GetPosX(), this->GetPosY(), this->coords.radius, WHITE);
 }

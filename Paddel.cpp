@@ -1,7 +1,7 @@
 #include "Paddel.h"
 
 void Paddle::SetY(int y) {
-	if (!((posy + y) >= GetScreenHeight() - (height / 2) || (posy + y) <= 0)) {
+	if (!((posy + y) >= GetScreenHeight() - (height) || (posy + y) <= 0)) {
 		posy += y;
 	}
 }

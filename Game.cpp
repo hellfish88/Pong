@@ -7,7 +7,8 @@ Game::Game(int screenWidth, int screenHeight, std::string title) :
 	assert(!IsWindowReady());
 
 	InitWindow(screenWidth, screenHeight, title.c_str()); // Create main window
-	ball = std::make_shared<Ball>(screenWidth / 2, screenHeight / 2, 20);
+
+	ball = std::make_shared<Ball>(Coords{.x = screenWidth / 2, .y = screenHeight / 2, .radius = 20 });
 	leftPaddle = std::make_shared<Paddle>(10);
 	rightPaddle = std::make_shared<Paddle>(GetScreenWidth() - 30);
 
