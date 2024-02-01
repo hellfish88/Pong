@@ -4,15 +4,16 @@
 
 class Paddle {
 private:
-	int posy;
-	int posx;
-	const int thicc;
-	const int height;
+	float posy;
+	float posx;
+	const float thicc;
+	const float height;
+	Vector2 coordinates;
 public:
 	//int GetX();
-	int GetY() const{ return posy; }
-	int GetX() const { return posx; }
-	int GetHeight() const { return height; }
+	float GetY() const{ return posy; }
+	float GetX() const { return posx; }
+	float GetHeight() const { return height; }
 	Paddle(int posx) :
 		posx(posx), posy((GetScreenHeight() /2)), thicc(20), height(GetScreenHeight() / 6) {
 	};
@@ -21,6 +22,7 @@ public:
 	};
 	void SetY(int);
 	void Update(int speed);
+	Rectangle GetDimensions() const;
 
 
 };

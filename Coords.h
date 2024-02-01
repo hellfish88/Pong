@@ -1,9 +1,9 @@
 #pragma once
 
 struct Coords {
-	int x;
-	int y;
-	int width;
-	int height;
-	int radius;
+	float x;
+	float y;
+	float width;
+	float height;
+	float radius;
 };

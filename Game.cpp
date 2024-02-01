@@ -8,7 +8,7 @@ Game::Game(int screenWidth, int screenHeight, std::string title) :
 
 	InitWindow(screenWidth, screenHeight, title.c_str()); // Create main window
 
-	ball = std::make_shared<Ball>(Coords{.x = screenWidth / 2, .y = screenHeight / 2, .radius = 20 });
+	ball = std::make_shared<Ball>(Coords{.x = (float)screenWidth / 2, .y = (float)screenHeight / 2, .radius = 20 });
 	leftPaddle = std::make_shared<Paddle>(10);
 	rightPaddle = std::make_shared<Paddle>(GetScreenWidth() - 30);
 
@@ -26,9 +26,6 @@ void Game::Tick() {
 	EndDrawing();
 }
 
-bool Game::CollisionDetection(Coords& ball, Coords& paddle) {
-	return false;
-}
 
 
 void Game::Draw(Ball* ball, Paddle* leftPaddle, Paddle* rightPaddle) {
@@ -36,6 +33,14 @@ void Game::Draw(Ball* ball, Paddle* leftPaddle, Paddle* rightPaddle) {
 	leftPaddle->Draw();
 	rightPaddle->Draw();
 	DrawText(hejsan.c_str(), ((screenWidth / 2) - hejsan.size() * 2), screenHeight / 2, 40, RED);
+}
+
+void Game::UpdateCPU(Paddle *cpu, const Ball* ball) {
+	if (ball->GetPosY() >= cpu->GetY()) {
+		cpu->SetY(ball->GetSpeed() - 1);
+	} else {
+		cpu->SetY((ball->GetSpeed() -1 )* -1);
+	}
 }
 
 
@@ -46,11 +51,16 @@ void Game::Update() {
 	if (ball->GetPosY() + ball->GetRadius() >= GetScreenHeight() || ball->GetPosY() - ball->GetRadius() <= 0) {
 		ball->SetSpeedY(-1);
 	}
+	UpdateCPU(rightPaddle.get(), ball.get());
+	//UpdateCPU(leftPaddle.get(), ball.get());
 
-	if ((ball->GetPosX() - ball->GetRadius() <= leftPaddle->GetX() + 20 && (ball->GetPosY() <= leftPaddle->GetY() || ball->GetPosY() >= leftPaddle->GetY() + leftPaddle->GetHeight()))) {
+	if ((CheckCollisionCircleRec(Vector2{ ball->GetPosX(), ball->GetPosY() }, ball->GetRadius(),leftPaddle->GetDimensions())) ||
+		(CheckCollisionCircleRec(Vector2{ ball->GetPosX(), ball->GetPosY() }, ball->GetRadius(), rightPaddle->GetDimensions()))
+		) {
 		ball->SetSpeedY(-1);
 		ball->SetSpeedX(-1);
 	}
+
 
 	ball->Update();
 	leftPaddle->Update(7*2);

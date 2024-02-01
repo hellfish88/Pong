@@ -5,19 +5,21 @@
 class Ball {
 
 private:
-	float posX, posY;
 	int speedX;
 	int speedY;
-	int radius;
 	Coords coords;
+	Vector2 coords2;
 public:
-	int GetPosX() const;
-	int GetPosY() const;
-	int GetRadius() const { return coords.radius; }
+	float GetPosX() const;
+	float GetPosY() const;
+	float GetRadius() const { return coords.radius; }
 	void SetPosX(int);
 	void SetPosY(int);
 	void SetSpeedX(int);
 	void SetSpeedY(int);
+	int GetSpeed() const {
+		return speedY;
+	}
 	Ball(Coords);
 	void Update();
 	void Draw() const;

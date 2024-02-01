@@ -16,16 +16,16 @@ public:
 	/// 
 
 	void Tick();
-	bool CollisionDetection(Coords&, Coords&);
 
 	bool GameShouldClose() const { return WindowShouldClose(); }
 private:
 	
 	void Update();
 	void Draw(Ball* ball, Paddle* leftPaddle, Paddle* RightPaddle);
+	void UpdateCPU(Paddle*, const Ball*);
 	int screenWidth;
 	int screenHeight;
-	std::string hejsan = "Fisk";
+	std::string hejsan = "";
 	std::string title;
 	std::shared_ptr<Ball> ball;
 	std::shared_ptr<Paddle> leftPaddle;

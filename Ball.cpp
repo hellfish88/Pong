@@ -1,10 +1,10 @@
 #include "Ball.h"
 
-int Ball::GetPosX() const {
+float Ball::GetPosX() const {
     return coords.x;
 }
 
-int Ball::GetPosY() const {
+float Ball::GetPosY() const {
     return coords.y;
 }
 
