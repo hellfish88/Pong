@@ -33,25 +33,41 @@ void Game::Draw(Ball* ball, Paddle* leftPaddle, Paddle* rightPaddle) {
 	leftPaddle->Draw();
 	rightPaddle->Draw();
 	DrawText(hejsan.c_str(), ((screenWidth / 2) - hejsan.size() * 2), screenHeight / 2, 40, RED);
+	DrawText(TextFormat("%zu", leftPaddle->GetScore()), screenWidth / 4 - 20, 10, 70, RED);
+	DrawText(TextFormat("%zu", leftPaddle->GetScore()), 3 * screenWidth / 4 - 20, 10, 70, RED);
 }
 
 void Game::UpdateCPU(Paddle *cpu, const Ball* ball) {
 	if (ball->GetPosY() >= cpu->GetY()) {
-		cpu->SetY(ball->GetSpeed() - 1);
+		cpu->SetY(ball->GetSpeed());
 	} else {
-		cpu->SetY((ball->GetSpeed() -1 )* -1);
+		cpu->SetY((ball->GetSpeed() -1 ) - 2);
 	}
+}
+
+void Game::ResetBall() {
+	ball->SetPosX(screenWidth / 2);
+	ball->SetPosY(screenHeight / 2);
 }
 
 
 void Game::Update() {
-	if (ball->GetPosX() + ball->GetRadius() >= GetScreenWidth() || ball->GetPosX() - ball->GetRadius() <= 0) {
-		ball->SetSpeedX(-1);
+	if (ball->GetPosX() + ball->GetRadius() >= GetScreenWidth()) {
+		leftPaddle->SetScore();
+		ResetBall();
+	} 
+	if (ball->GetPosX() - ball->GetRadius() <= 0) {
+		rightPaddle->SetScore();
+		ResetBall();
 	}
+
 	if (ball->GetPosY() + ball->GetRadius() >= GetScreenHeight() || ball->GetPosY() - ball->GetRadius() <= 0) {
 		ball->SetSpeedY(-1);
 	}
-	UpdateCPU(rightPaddle.get(), ball.get());
+
+
+
+	//UpdateCPU(rightPaddle.get(), ball.get());
 	//UpdateCPU(leftPaddle.get(), ball.get());
 
 	if ((CheckCollisionCircleRec(Vector2{ ball->GetPosX(), ball->GetPosY() }, ball->GetRadius(),leftPaddle->GetDimensions())) ||

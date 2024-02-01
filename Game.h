@@ -23,6 +23,7 @@ private:
 	void Update();
 	void Draw(Ball* ball, Paddle* leftPaddle, Paddle* RightPaddle);
 	void UpdateCPU(Paddle*, const Ball*);
+	void ResetBall();
 	int screenWidth;
 	int screenHeight;
 	std::string hejsan = "";
