@@ -8,12 +8,21 @@ float Ball::GetPosY() const {
     return coords.y;
 }
 
-void Ball::SetPosX(int pos) {
-    coords.x += pos;
+void Ball::SetPosX(int pos, bool reset) {
+    if (!reset) {
+        coords.x += pos;
+    } else {
+        coords.x = pos;
+    }
 }
 
-void Ball::SetPosY(int pos) {
-    coords.y += pos;
+void Ball::SetPosY(int pos, bool reset) {
+    if (!reset) {
+        coords.y += pos;
+    } else {
+        coords.y = pos;
+    }
+
 }
 
 void Ball::SetSpeedX(int x) {
@@ -38,10 +47,10 @@ void Ball::Update() {
         //if (GetPosY() + radius >= GetScreenHeight() || GetPosY() - radius <= 0) {
         //    speedY *= -1;
         //}
-
+        
         SetPosX(speedX);
         SetPosY(speedY);
-
+ 
 }
 
 void Ball::Draw() const {

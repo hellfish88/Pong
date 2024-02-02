@@ -13,8 +13,8 @@ public:
 	float GetPosX() const;
 	float GetPosY() const;
 	float GetRadius() const { return coords.radius; }
-	void SetPosX(int);
-	void SetPosY(int);
+	void SetPosX(int, bool reset = false);
+	void SetPosY(int, bool reset = false);
 	void SetSpeedX(int);
 	void SetSpeedY(int);
 	int GetSpeed() const {
