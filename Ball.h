@@ -7,6 +7,9 @@ class Ball {
 private:
 	int speedX;
 	int speedY;
+	int original_speedX;
+	int original_speedY;
+	bool has_been_doubled = false;
 	Coords coords;
 	Vector2 coords2;
 public:
@@ -17,6 +20,10 @@ public:
 	void SetPosY(int, bool reset = false);
 	void SetSpeedX(int);
 	void SetSpeedY(int);
+	void DoubleSpeed();
+	void ResetSpeed();
+	void SetDoubledBool(bool sant) { has_been_doubled = sant; };
+	bool GetDoubleBool() const { return has_been_doubled; };
 	int GetSpeed() const {
 		return speedY;
 	}

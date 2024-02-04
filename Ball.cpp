@@ -33,20 +33,28 @@ void Ball::SetSpeedY(int y) {
     speedY *= y;
 }
 
+void Ball::DoubleSpeed() {
+    if (!has_been_doubled) {
+        SetSpeedX(2);
+        SetSpeedY(2);
+        has_been_doubled = true;
+    }
+}
+
+void Ball::ResetSpeed() {
+    speedX = (speedX <= 0) ? original_speedX * -1 : original_speedX;
+    speedY = (speedY <= 0) ? original_speedY * -1 : original_speedY;
+}
+
 Ball::Ball(Coords coords_val) :
     //coords.x(coords.x), coords.y(coords.y), coords.radius(coords.radius), speedX(7), speedY(7){
     coords(coords_val), speedX(7), speedY(7){
-    //DrawCircle(coords.x, posY, rad, WHITE);
+    original_speedX = speedX;
+    original_speedY = speedY;
 }
 
 void Ball::Update() {
 
-        //if (Getcoords.x() + radius >= GetScreenWidth() || Getcoords.x() - radius <= 0) {
-        //    speedX *= -1;
-        //}
-        //if (GetPosY() + radius >= GetScreenHeight() || GetPosY() - radius <= 0) {
-        //    speedY *= -1;
-        //}
         
         SetPosX(speedX);
         SetPosY(speedY);
