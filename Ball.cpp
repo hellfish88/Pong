@@ -54,10 +54,9 @@ Ball::Ball(Coords coords_val) :
 }
 
 void Ball::Update() {
-
-        
         SetPosX(speedX);
         SetPosY(speedY);
+
  
 }
 

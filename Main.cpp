@@ -7,7 +7,7 @@ int main(void) {
     const int screenHeight = 800;
 
 
-    Game game(screenWidth, screenHeight, "Spel");
+    Pong::Game game(screenWidth, screenHeight, "Spel");
 
     while (!game.GameShouldClose()) {
         game.Tick();
