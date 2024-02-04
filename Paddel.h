@@ -21,7 +21,8 @@ public:
 		coordinates.y = posy;
 	};
 	void Draw()  {
-		DrawRectangle(posx, posy, 20, height, WHITE);
+		//DrawRectangle(posx, posy, 20, height, WHITE);
+		DrawRectangleRounded(GetDimensions(), 10, 10, WHITE); // Color ruby red
 	};
 	void SetY(int);
 	void Update(int speed);

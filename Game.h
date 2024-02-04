@@ -12,7 +12,7 @@ class Game {
 public:
 	Game() = default;
 	Game(int screenWidth, int screenHeight, std::string title);
-	~Game() noexcept { CloseWindow(); }
+	~Game() noexcept;
 	/// 
 
 	void Tick();
@@ -31,6 +31,8 @@ private:
 	std::shared_ptr<Ball> ball;
 	std::shared_ptr<Paddle> leftPaddle;
 	std::shared_ptr<Paddle> rightPaddle;
+	//Image temple;
+	//Texture2D texture;
 };
 
 
