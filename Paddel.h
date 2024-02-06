@@ -1,6 +1,7 @@
 #pragma once
 #include "raylib.h"
 #include "Coords.h"
+#include <algorithm>
 
 class Paddle {
 private:
@@ -12,6 +13,7 @@ public:
 	float GetX() const { return stats.x; }
 	float GetHeight() const { return stats.height; }
 	float GetMidY() const { return stats.y + stats.height / 2; }
+	float GetNorm(float impactY) const;
 	Paddle(float posx) :
 		stats{.x = posx, .y = (float)GetScreenHeight() / 2, .width = 20, .height = (float)GetScreenHeight() / 6 } {
 	};

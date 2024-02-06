@@ -101,11 +101,17 @@ namespace Pong {
 
 
 		UpdateCPU(rightPaddle.get(), ball.get());
-		UpdateCPU(leftPaddle.get(), ball.get());
+		//UpdateCPU(leftPaddle.get(), ball.get());
 
-		if ((CheckCollisionCircleRec(Vector2{ ball->GetPosX(), ball->GetPosY() }, ball->GetRadius(), leftPaddle->GetDimensions())) ||
-			(CheckCollisionCircleRec(Vector2{ ball->GetPosX(), ball->GetPosY() }, ball->GetRadius(), rightPaddle->GetDimensions()))
-			) {
+		if (CheckCollisionCircleRec(Vector2{ ball->GetPosX(), ball->GetPosY() }, ball->GetRadius(), leftPaddle->GetDimensions())) {
+			std::cout << "Norm: " << leftPaddle->GetNorm(ball->GetPosY()) << std::endl;
+			ball->SetSpeedY(-1);
+			ball->SetSpeedX(-1);
+			if (GetRandomValue(0, 5) == 0) {
+				ball->DoubleSpeed();
+			}
+		} else if (CheckCollisionCircleRec(Vector2{ ball->GetPosX(), ball->GetPosY() }, ball->GetRadius(), rightPaddle->GetDimensions())) {
+			std::cout << "Norm: " << rightPaddle->GetNorm(ball->GetPosY()) << std::endl;
 			ball->SetSpeedY(-1);
 			ball->SetSpeedX(-1);
 			if (GetRandomValue(0, 5) == 0) {
