@@ -1,4 +1,5 @@
 #include "Ball.h"
+#include <iostream>
 
 float Ball::GetPosX() const {
     return coords.x;
@@ -47,17 +48,17 @@ void Ball::ResetSpeed() {
 }
 
 Ball::Ball(Coords coords_val) :
-    //coords.x(coords.x), coords.y(coords.y), coords.radius(coords.radius), speedX(7), speedY(7){
+
     coords(coords_val), speedX(7), speedY(7){
     original_speedX = speedX;
     original_speedY = speedY;
 }
 
-void Ball::Update() {
+void Ball::Update(Paddle* paddle) {
         SetPosX(speedX);
         SetPosY(speedY);
 
- 
+
 }
 
 void Ball::Draw() const {

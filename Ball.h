@@ -2,14 +2,17 @@
 
 
 #include "raylib.h"
+#include "raymath.h"
 #include "Coords.h"
 #include <cmath>
+#include "Paddel.h"
 
 class Ball {
 
 private:
 	int speedX;
 	int speedY;
+	float speed = 14;
 	int original_speedX;
 	int original_speedY;
 	bool has_been_doubled = false;
@@ -20,7 +23,7 @@ public:
 	float GetPosX() const;
 	float GetPosY() const;
 	float GetRadius() const { return coords.radius; }
-	double getAtan() { return atan2(coords.y, coords.x); }
+	double getAtan() { return atan2(coords.x,coords.y); }
 	void SetPosX(int, bool reset = false);
 	void SetPosY(int, bool reset = false);
 	void SetSpeedX(int);
@@ -33,6 +36,6 @@ public:
 		return speedY;
 	}
 	Ball(Coords);
-	void Update();
+	void Update(Paddle*);
 	void Draw() const;
 };

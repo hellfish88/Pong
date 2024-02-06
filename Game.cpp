@@ -30,9 +30,9 @@ namespace Pong {
 		EndDrawing();
 		double degree = ball->getAtan();
 		//float degrees = std::fmod(((float)degree * 180.0f / M_PI) + 360.0f, 360.0f);
-		double degrees = degree + 360 % 360;
+		//double degrees = degree + 360 % 360;
 
-		std::cout << "Ball angle: " << degrees  << std::endl;
+		//std::cout << "Ball angle: " << degree  << std::endl;
 	}
 
 	void Game::Draw(Ball* ball, Paddle* leftPaddle, Paddle* rightPaddle) {
@@ -114,7 +114,7 @@ namespace Pong {
 		}
 
 
-		ball->Update();
+		ball->Update(rightPaddle.get());
 		leftPaddle->Update(7);
 	}
 
