@@ -121,7 +121,7 @@ namespace Pong {
 		//UpdateCPU(leftPaddle.get(), ball.get());
 
 		if (CheckCollisionCircleRec(Vector2{ ball->GetPosX(), ball->GetPosY() }, ball->GetRadius(), leftPaddle->GetDimensions())) {
-			std::cout << "Collision. Norm val: " << leftPaddle->GetNorm(ball->GetPosY()) << std::endl;
+			//std::cout << "Collision. Norm val: " << leftPaddle->GetNorm(ball->GetPosY()) << std::endl;
 			ball->SetUpdateTime();
 			ball->SetNormBool();
 			ball->SetNormRatio(leftPaddle->GetNorm(ball->GetPosY()));
@@ -131,7 +131,7 @@ namespace Pong {
 				ball->DoubleSpeed();
 			}
 		} else if (CheckCollisionCircleRec(Vector2{ ball->GetPosX(), ball->GetPosY() }, ball->GetRadius(), rightPaddle->GetDimensions())) {
-			std::cout << "Collision. Norm val: " << rightPaddle->GetNorm(ball->GetPosY()) << std::endl;
+			//std::cout << "Collision. Norm val: " << rightPaddle->GetNorm(ball->GetPosY()) << std::endl;
 			ball->SetUpdateTime();
 			ball->SetNormBool();
 			ball->SetNormRatio(rightPaddle->GetNorm(ball->GetPosY()));

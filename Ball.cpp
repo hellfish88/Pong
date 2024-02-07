@@ -27,9 +27,9 @@ void Ball::SetPosY(int pos, bool reset) {
 }
 
 void Ball::SetSpeedX(int x) {
-    if (GetTime() - timeUpdated > 0.3) {
+    if (GetTime() - timeUpdated < 0.3 && collisionCount > 1) {/// Fix ball stuck in paddle bug
         speedX *= x;
-        coords.x += (coords.x > GetScreenWidth()/2)? -5 : 5; /// Fix ball stuck in paddle bug
+        coords.x += (coords.x > GetScreenWidth()/2)? -5 : 5; 
         std::cout << "Ball pos fixed! bugfix worked!!" << std::endl;
     } else {
         speedX *= x;
@@ -72,6 +72,8 @@ Ball::Ball(Circle coords_val) :
 void Ball::Update(Paddle* paddle) {
         SetPosX(speedX);
         SetPosY(speedY);
+        if (coords.x > (GetScreenWidth() /2) - 20 && coords.x < (GetScreenWidth() /2) + 20 && collisionCount >= 1) // Continueing of bugfix for ball stuck in paddle
+            collisionCount = 0;
 
 
 }

@@ -21,7 +21,7 @@ private:
 	float normRatio;
 	// Counter to remove bug where ball gets stuck in paddle
 	float timeUpdated;										////
-	float collisionCount = 0;								////
+	size_t collisionCount = 0;								////
 	bool beenUpdated = false;								////
 	//														////
 public:
@@ -39,7 +39,10 @@ public:
 	void SetNormBool() { customDirection = true; }
 	void SetDoubledBool(bool sant) { has_been_doubled = sant; };
 	void SetCollisionCounter();
-	void SetUpdateTime() { timeUpdated = GetTime(); }
+	void SetUpdateTime() {
+		timeUpdated = GetTime();
+		collisionCount++;
+	}
 	bool GetDoubleBool() const { return has_been_doubled; };
 	int	GetSpeed() const {
 		return speedY;
