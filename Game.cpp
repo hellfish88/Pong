@@ -14,7 +14,7 @@ namespace Pong {
 		ball = std::make_shared<Ball>(Circle{ .x = (float)screenWidth / 2, .y = (float)screenHeight / 2, .radius = 20 });
 		leftPaddle = std::make_shared<Paddle>(10);
 		rightPaddle = std::make_shared<Paddle>(GetScreenWidth() - 30);
-
+		powerups.emplace_back(std::make_shared<DoubleUp>(GetRandomX(), GetRandomY()));
 		SetTargetFPS(60); // No explaination needed
 
 	}
@@ -39,6 +39,8 @@ namespace Pong {
 		rightPaddle->Draw();
 		DrawText(TextFormat("%zu", leftPaddle->GetScore()), screenWidth / 4 - 20, 10, 70, WHITE);
 		DrawText(TextFormat("%zu", rightPaddle->GetScore()), 3 * screenWidth / 4 - 20, 10, 70, WHITE);
+		powerups[0]->Draw();
+		
 
 		/// debug
 		//if (ball->GetDoubleBool()) {
@@ -100,6 +102,13 @@ namespace Pong {
 		}
 	}
 
+	float Game::GetRandomX() {
+		return GetRandomValue((GetScreenWidth() / 4), 3 * (GetScreenWidth() / 4));
+	}
+
+	float Game::GetRandomY() {
+		return GetRandomValue(20, GetScreenHeight());
+	}
 
 	void Game::Update() {
 		if (ball->GetPosX() + ball->GetRadius() >= screenWidth) {
@@ -131,6 +140,7 @@ namespace Pong {
 			if (GetRandomValue(0, 5) == 0) {
 				SetBackgroundColor(BLACK);
 				ball->DoubleSpeed();
+				powerups[0]->Delete();
 			}
 		} else if (CheckCollisionCircleRec(Vector2{ ball->GetPosX(), ball->GetPosY() }, ball->GetRadius(), rightPaddle->GetDimensions())) {
 			//std::cout << "Collision. Norm val: " << rightPaddle->GetNorm(ball->GetPosY()) << std::endl;
@@ -142,6 +152,7 @@ namespace Pong {
 			if (GetRandomValue(0, 5) == 0) {
 				ball->DoubleSpeed();
 				SetBackgroundColor(BLACK);
+				powerups[0]->Delete();
 			}
 		}
 
