@@ -11,7 +11,7 @@ namespace Pong {
 
 		InitWindow(screenWidth, screenHeight, title.c_str()); // Create main window
 
-		ball = std::make_shared<Ball>(Coords{ .x = (float)screenWidth / 2, .y = (float)screenHeight / 2, .radius = 20 });
+		ball = std::make_shared<Ball>(Circle{ .x = (float)screenWidth / 2, .y = (float)screenHeight / 2, .radius = 20 });
 		leftPaddle = std::make_shared<Paddle>(10);
 		rightPaddle = std::make_shared<Paddle>(GetScreenWidth() - 30);
 
@@ -28,11 +28,6 @@ namespace Pong {
 		Update();
 		Draw(ball.get(), leftPaddle.get(), rightPaddle.get());
 		EndDrawing();
-		double degree = ball->getAtan();
-		//float degrees = std::fmod(((float)degree * 180.0f / M_PI) + 360.0f, 360.0f);
-		//double degrees = degree + 360 % 360;
-
-		//std::cout << "Ball angle: " << degree  << std::endl;
 	}
 
 	void Game::Draw(Ball* ball, Paddle* leftPaddle, Paddle* rightPaddle) {
@@ -55,14 +50,36 @@ namespace Pong {
 
 	void Game::UpdateCPU(Paddle* cpu, const Ball* ball) { // move CPU paddle
 
-		int speed = (ball->GetDoubleBool()) ? (ball->GetSpeed() / 2) : ball->GetSpeed();
-		size_t limitation = 0;
-		if (GetRandomValue(0, 100) % 10 == 0) {
-			limitation = 4;
-		} else if (GetRandomValue(0, 100) % 5 == 0) {
-			limitation = -2;
+		//float speed = (ball->GetDoubleBool()) ? (ball->GetSpeed() / 2) : ball->GetSpeed();
+
+
+		size_t limitation{ 0 };
+
+		//if (GetRandomValue(0, 100) % 10 == 0) {
+		//	limitation = 4;
+		//} else if (GetRandomValue(0, 100) % 5 == 0) {
+		//	limitation = -2;
+		//}
+		
+
+		float paddieDirectionSpeed = (ball->GetSpeed() <= 0) ? -1 : 1;
+		//speed *= paddieDirectionSpeed;
+		float speed{ 0 };
+		
+		float ballPos = ball->GetPosY();
+		float paddlePos = cpu->GetMidY();
+		float diff = std::abs(ballPos - paddlePos);
+		if (ballPos < paddlePos) {
+			speed = -7;
+		} else {
+			speed = 7;
 		}
+		// Try to remove tremble of paddle
+		if (diff < 20)
+			speed = 1;
+
 		cpu->SetY((speed <= 0) ? speed - limitation : speed + limitation);
+		//cpu->SetY(speed);
 
 	}
 
@@ -104,7 +121,8 @@ namespace Pong {
 		//UpdateCPU(leftPaddle.get(), ball.get());
 
 		if (CheckCollisionCircleRec(Vector2{ ball->GetPosX(), ball->GetPosY() }, ball->GetRadius(), leftPaddle->GetDimensions())) {
-			std::cout << "Norm: " << leftPaddle->GetNorm(ball->GetPosY()) << std::endl;
+			std::cout << "Collision. Norm val: " << leftPaddle->GetNorm(ball->GetPosY()) << std::endl;
+			ball->SetUpdateTime();
 			ball->SetNormBool();
 			ball->SetNormRatio(leftPaddle->GetNorm(ball->GetPosY()));
 			ball->SetSpeedY(-1);
@@ -113,7 +131,8 @@ namespace Pong {
 				ball->DoubleSpeed();
 			}
 		} else if (CheckCollisionCircleRec(Vector2{ ball->GetPosX(), ball->GetPosY() }, ball->GetRadius(), rightPaddle->GetDimensions())) {
-			std::cout << "Norm: " << rightPaddle->GetNorm(ball->GetPosY()) << std::endl;
+			std::cout << "Collision. Norm val: " << rightPaddle->GetNorm(ball->GetPosY()) << std::endl;
+			ball->SetUpdateTime();
 			ball->SetNormBool();
 			ball->SetNormRatio(rightPaddle->GetNorm(ball->GetPosY()));
 			ball->SetSpeedY(-1);

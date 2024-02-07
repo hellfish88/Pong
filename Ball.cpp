@@ -27,7 +27,13 @@ void Ball::SetPosY(int pos, bool reset) {
 }
 
 void Ball::SetSpeedX(int x) {
-    speedX *= x;
+    if (GetTime() - timeUpdated > 0.3) {
+        speedX *= x;
+        coords.x += (coords.x > GetScreenWidth()/2)? -5 : 5; /// Fix ball stuck in paddle bug
+        std::cout << "Ball pos fixed! bugfix worked!!" << std::endl;
+    } else {
+        speedX *= x;
+    }
 }
 
 void Ball::SetSpeedY(int y) {
@@ -52,7 +58,11 @@ void Ball::ResetSpeed() {
     speedY = (speedY <= 0) ? original_speedY * -1 : original_speedY;
 }
 
-Ball::Ball(Coords coords_val) :
+void Ball::SetCollisionCounter() {
+    //timeUpdated = GetTime();
+}
+
+Ball::Ball(Circle coords_val) :
 
     coords(coords_val), speedX(7), speedY(7){
     original_speedX = speedX;

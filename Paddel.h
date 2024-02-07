@@ -1,6 +1,6 @@
 #pragma once
 #include "raylib.h"
-#include "Coords.h"
+//#include "Coords.h"
 #include <algorithm>
 
 class Paddle {
@@ -21,7 +21,7 @@ public:
 		//DrawRectangle(posx, posy, 20, height, WHITE);
 		DrawRectangleRounded(GetDimensions(), 10, 10, WHITE); // Color ruby red
 	};
-	void SetY(int);
+	void SetY(float);
 	void Update(float speed);
 	void SetScore() { score++; }
 	size_t GetScore() { return score; }

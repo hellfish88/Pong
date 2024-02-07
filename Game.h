@@ -7,7 +7,7 @@
 #include "Ball.h"
 #include <memory>
 #include "Paddel.h"
-#include "Coords.h"
+//#include "Coords.h"
 
 namespace Pong {
 

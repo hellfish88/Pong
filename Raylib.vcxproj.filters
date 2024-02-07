@@ -38,7 +38,7 @@
     <ClInclude Include="Paddel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Coords.h">
+    <ClInclude Include="Circle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

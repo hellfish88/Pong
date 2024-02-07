@@ -3,7 +3,6 @@
 float Paddle::GetNorm(float impactY) const {
 	float neutral = GetMidY();
 	float max = neutral + (stats.height / 2);
-	//float hitPos = impactY - neutral;
 
 	float distanceFromCenter = impactY - neutral;
 	float norm = distanceFromCenter / (stats.height / 2);
@@ -11,8 +10,8 @@ float Paddle::GetNorm(float impactY) const {
 
 }
 
-void Paddle::SetY(int _y) {
-	float y = static_cast<float>(_y);
+void Paddle::SetY(float y) {
+	//float y = static_cast<float>(_y);
 
 	if (!((stats.y + y) >= GetScreenHeight() - (stats.height) || (stats.y + y) <= 0)) {
 		stats.y += y;

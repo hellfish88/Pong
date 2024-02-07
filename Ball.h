@@ -3,7 +3,7 @@
 
 #include "raylib.h"
 #include "raymath.h"
-#include "Coords.h"
+#include "Circle.h"
 #include <cmath>
 #include "Paddel.h"
 
@@ -17,14 +17,18 @@ private:
 	int original_speedY;
 	bool has_been_doubled = false;
 	bool customDirection = false;
-	Coords coords;
-	Vector2 coords2;
+	Circle coords;
 	float normRatio;
+	// Counter to remove bug where ball gets stuck in paddle
+	float timeUpdated;										////
+	float collisionCount = 0;								////
+	bool beenUpdated = false;								////
+	//														////
 public:
 	float GetPosX() const;
 	float GetPosY() const;
 	float GetRadius() const { return coords.radius; }
-	double getAtan() { return atan2(coords.x,coords.y); }
+	//double getAtan() { return atan2(coords.x,coords.y); }
 	void SetPosX(int, bool reset = false);
 	void SetPosY(int, bool reset = false);
 	void SetSpeedX(int);
@@ -34,11 +38,13 @@ public:
 	void SetNormRatio(float y) { normRatio = y; }
 	void SetNormBool() { customDirection = true; }
 	void SetDoubledBool(bool sant) { has_been_doubled = sant; };
+	void SetCollisionCounter();
+	void SetUpdateTime() { timeUpdated = GetTime(); }
 	bool GetDoubleBool() const { return has_been_doubled; };
 	int	GetSpeed() const {
 		return speedY;
 	}
-	Ball(Coords);
+	Ball(Circle);
 	void Update(Paddle*);
 	void Draw() const;
 };

@@ -1,9 +1,7 @@
 #pragma once
 
-struct Coords {
+struct Circle {
 	float x;
 	float y;
-	float width;
-	float height;
 	float radius;
 };
