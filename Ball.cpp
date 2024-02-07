@@ -49,6 +49,7 @@ void Ball::DoubleSpeed() {
     if (!has_been_doubled) {
         SetSpeedX(2);
         SetSpeedY(2);
+        SetColor(RED);
         has_been_doubled = true;
     }
 }
@@ -58,9 +59,9 @@ void Ball::ResetSpeed() {
     speedY = (speedY <= 0) ? original_speedY * -1 : original_speedY;
 }
 
-void Ball::SetCollisionCounter() {
-    //timeUpdated = GetTime();
-}
+//void Ball::SetCollisionCounter() {
+//    //timeUpdated = GetTime();
+//}
 
 Ball::Ball(Circle coords_val) :
 
@@ -69,7 +70,7 @@ Ball::Ball(Circle coords_val) :
     original_speedY = speedY;
 }
 
-void Ball::Update(Paddle* paddle) {
+void Ball::Update() {
         SetPosX(speedX);
         SetPosY(speedY);
         if (coords.x > (GetScreenWidth() /2) - 20 && coords.x < (GetScreenWidth() /2) + 20 && collisionCount >= 1) // Continueing of bugfix for ball stuck in paddle
@@ -79,5 +80,5 @@ void Ball::Update(Paddle* paddle) {
 }
 
 void Ball::Draw() const {
-    DrawCircle(this->GetPosX(), this->GetPosY(), this->coords.radius, WHITE);
+    DrawCircle(this->GetPosX(), this->GetPosY(), this->coords.radius, color);
 }

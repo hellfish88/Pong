@@ -11,7 +11,6 @@ float Paddle::GetNorm(float impactY) const {
 }
 
 void Paddle::SetY(float y) {
-	//float y = static_cast<float>(_y);
 
 	if (!((stats.y + y) >= GetScreenHeight() - (stats.height) || (stats.y + y) <= 0)) {
 		stats.y += y;

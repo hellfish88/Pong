@@ -23,7 +23,8 @@ namespace Pong {
 
 	void Game::Tick() {
 
-		ClearBackground(Color{ 225, 87, 51, 255 });
+		//ClearBackground(Color{ 225, 87, 51, 255 });
+		ClearBackground(backgroundColor);
 		BeginDrawing();
 		Update();
 		Draw(ball.get(), leftPaddle.get(), rightPaddle.get());
@@ -49,8 +50,6 @@ namespace Pong {
 	}
 
 	void Game::UpdateCPU(Paddle* cpu, const Ball* ball) { // move CPU paddle
-
-		//float speed = (ball->GetDoubleBool()) ? (ball->GetSpeed() / 2) : ball->GetSpeed();
 
 
 		size_t limitation{ 0 };
@@ -94,6 +93,8 @@ namespace Pong {
 		ball->SetPosY(screenHeight / 2, true);
 		ball->SetDoubledBool(false);
 		ball->ResetSpeed();
+		ball->SetColor(WHITE);
+		SetBackgroundColor(origBackgroundColor);
 		if (GetRandomValue(0, 100) % 33 == 0) {
 			ball->DoubleSpeed();
 		}
@@ -128,6 +129,7 @@ namespace Pong {
 			ball->SetSpeedY(-1);
 			ball->SetSpeedX(-1);
 			if (GetRandomValue(0, 5) == 0) {
+				SetBackgroundColor(BLACK);
 				ball->DoubleSpeed();
 			}
 		} else if (CheckCollisionCircleRec(Vector2{ ball->GetPosX(), ball->GetPosY() }, ball->GetRadius(), rightPaddle->GetDimensions())) {
@@ -139,12 +141,13 @@ namespace Pong {
 			ball->SetSpeedX(-1);
 			if (GetRandomValue(0, 5) == 0) {
 				ball->DoubleSpeed();
+				SetBackgroundColor(BLACK);
 			}
 		}
 
 
-		ball->Update(rightPaddle.get());
-		leftPaddle->Update(7);
+		ball->Update();
+		leftPaddle->Update(7); // paddle speed in here
 	}
 
 

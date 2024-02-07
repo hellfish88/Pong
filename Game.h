@@ -28,6 +28,9 @@ namespace Pong {
 		void Draw(Ball* ball, Paddle* leftPaddle, Paddle* RightPaddle);
 		void UpdateCPU(Paddle*, const Ball*);
 		void ResetBall();
+		void SetBackgroundColor(Color colour) { this->backgroundColor = colour; }
+		Color backgroundColor = Color{ 225, 87, 51, 255 };
+		const Color origBackgroundColor = Color{ 225, 87, 51, 255 };
 		int screenWidth;
 		int screenHeight;
 		std::string hejsan = "";

@@ -19,10 +19,11 @@ private:
 	bool customDirection = false;
 	Circle coords;
 	float normRatio;
+	Color color = WHITE;
 	// Counter to remove bug where ball gets stuck in paddle
 	float timeUpdated;										////
 	size_t collisionCount = 0;								////
-	bool beenUpdated = false;								////
+	//bool beenUpdated = false;								////
 	//														////
 public:
 	float GetPosX() const;
@@ -38,7 +39,8 @@ public:
 	void SetNormRatio(float y) { normRatio = y; }
 	void SetNormBool() { customDirection = true; }
 	void SetDoubledBool(bool sant) { has_been_doubled = sant; };
-	void SetCollisionCounter();
+	//void SetCollisionCounter();
+	void SetColor(Color colour) { this->color = colour; }
 	void SetUpdateTime() {
 		timeUpdated = GetTime();
 		collisionCount++;
@@ -48,6 +50,6 @@ public:
 		return speedY;
 	}
 	Ball(Circle);
-	void Update(Paddle*);
+	void Update();
 	void Draw() const;
 };
