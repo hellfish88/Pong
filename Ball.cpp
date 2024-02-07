@@ -31,7 +31,12 @@ void Ball::SetSpeedX(int x) {
 }
 
 void Ball::SetSpeedY(int y) {
-    speedY *= y;
+    if (customDirection) {
+        speedY = (original_speedY *y) * normRatio;
+        customDirection = false;
+    } else {
+        speedY *= y;
+    }
 }
 
 void Ball::DoubleSpeed() {

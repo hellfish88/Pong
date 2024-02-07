@@ -7,7 +7,7 @@ float Paddle::GetNorm(float impactY) const {
 
 	float distanceFromCenter = impactY - neutral;
 	float norm = distanceFromCenter / (stats.height / 2);
-	return norm;
+	return std::clamp(norm, -1.0f, 1.0f);
 
 }
 

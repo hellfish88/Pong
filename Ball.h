@@ -16,9 +16,10 @@ private:
 	int original_speedX;
 	int original_speedY;
 	bool has_been_doubled = false;
+	bool customDirection = false;
 	Coords coords;
 	Vector2 coords2;
-	double atan;
+	float normRatio;
 public:
 	float GetPosX() const;
 	float GetPosY() const;
@@ -30,6 +31,8 @@ public:
 	void SetSpeedY(int);
 	void DoubleSpeed();
 	void ResetSpeed();
+	void SetNormRatio(float y) { normRatio = y; }
+	void SetNormBool() { customDirection = true; }
 	void SetDoubledBool(bool sant) { has_been_doubled = sant; };
 	bool GetDoubleBool() const { return has_been_doubled; };
 	int	GetSpeed() const {

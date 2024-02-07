@@ -105,6 +105,8 @@ namespace Pong {
 
 		if (CheckCollisionCircleRec(Vector2{ ball->GetPosX(), ball->GetPosY() }, ball->GetRadius(), leftPaddle->GetDimensions())) {
 			std::cout << "Norm: " << leftPaddle->GetNorm(ball->GetPosY()) << std::endl;
+			ball->SetNormBool();
+			ball->SetNormRatio(leftPaddle->GetNorm(ball->GetPosY()));
 			ball->SetSpeedY(-1);
 			ball->SetSpeedX(-1);
 			if (GetRandomValue(0, 5) == 0) {
@@ -112,6 +114,8 @@ namespace Pong {
 			}
 		} else if (CheckCollisionCircleRec(Vector2{ ball->GetPosX(), ball->GetPosY() }, ball->GetRadius(), rightPaddle->GetDimensions())) {
 			std::cout << "Norm: " << rightPaddle->GetNorm(ball->GetPosY()) << std::endl;
+			ball->SetNormBool();
+			ball->SetNormRatio(rightPaddle->GetNorm(ball->GetPosY()));
 			ball->SetSpeedY(-1);
 			ball->SetSpeedX(-1);
 			if (GetRandomValue(0, 5) == 0) {
