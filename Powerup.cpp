@@ -8,5 +8,12 @@ void Powerup::SetX(float _x) {
 }
 
 void DoubleUp::Draw() {
-	DrawCircle(position.x, position.y, radius, color);
+	if (shouldDraw)
+		DrawCircle(position.x, position.y, radius, color);
 }
+
+void DoubleUp::Action() {
+	ball->SetDoublePowerUpBool(true);
+	ball->DoubleSpeed();
+}
+

@@ -14,7 +14,6 @@ namespace Pong {
 		ball = std::make_shared<Ball>(Circle{ .x = (float)screenWidth / 2, .y = (float)screenHeight / 2, .radius = 20 });
 		leftPaddle = std::make_shared<Paddle>(10);
 		rightPaddle = std::make_shared<Paddle>(GetScreenWidth() - 30);
-		powerups.emplace_back(std::make_shared<DoubleUp>(GetRandomX(), GetRandomY()));
 		SetTargetFPS(60); // No explaination needed
 
 	}
@@ -29,9 +28,7 @@ namespace Pong {
 		Update();
 		Draw(ball.get(), leftPaddle.get(), rightPaddle.get());
 		EndDrawing();
-		for (auto& powerup : powerups) {
-			powerup->Draw();
-		}
+
 	}
 
 	void Game::Draw(Ball* ball, Paddle* leftPaddle, Paddle* rightPaddle) {
@@ -51,7 +48,9 @@ namespace Pong {
 		//	DrawText(TextFormat("%i", ball->GetSpeed()), screenWidth / 2, screenHeight / 4 * 3, 40, BLACK);
 		//}
 
-
+		if (powerup) {
+			powerup->Draw();
+		}
 	}
 
 	void Game::UpdateCPU(Paddle* cpu, const Ball* ball) { // move CPU paddle
@@ -97,12 +96,15 @@ namespace Pong {
 		ball->SetPosX(screenWidth / 2, true);
 		ball->SetPosY(screenHeight / 2, true);
 		ball->SetDoubledBool(false);
+		ball->SetDoublePowerUpBool(false);
 		ball->ResetSpeed();
 		ball->SetColor(WHITE);
 		SetBackgroundColor(origBackgroundColor);
 		if (GetRandomValue(0, 100) % 33 == 0) {
 			ball->DoubleSpeed();
 		}
+		if (powerup)
+			powerup = nullptr;
 	}
 
 	float Game::GetRandomX() {
@@ -129,7 +131,6 @@ namespace Pong {
 		}
 
 
-
 		UpdateCPU(rightPaddle.get(), ball.get());
 		//UpdateCPU(leftPaddle.get(), ball.get());
 
@@ -143,10 +144,7 @@ namespace Pong {
 			if (GetRandomValue(0, 5) == 0) {
 				SetBackgroundColor(BLACK);
 				ball->DoubleSpeed();
-				for (auto it = powerups.begin(); it != powerups.end(); it++) {
-					powerups.erase(it);
-					break;
-				}
+
 			}
 		} else if (CheckCollisionCircleRec(Vector2{ ball->GetPosX(), ball->GetPosY() }, ball->GetRadius(), rightPaddle->GetDimensions())) {
 			//std::cout << "Collision. Norm val: " << rightPaddle->GetNorm(ball->GetPosY()) << std::endl;
@@ -155,15 +153,29 @@ namespace Pong {
 			ball->SetNormRatio(rightPaddle->GetNorm(ball->GetPosY()));
 			ball->SetSpeedY(-1);
 			ball->SetSpeedX(-1);
-			if (GetRandomValue(0, 5) == 0) {
-				ball->DoubleSpeed();
-				SetBackgroundColor(BLACK);
-				for (auto it = powerups.begin(); it != powerups.end(); it++) {
-					powerups.erase(it);
-					break;
+
+			int randomVal = GetRandomValue(0, 5);
+
+
+			if (randomVal <= 1) {
+				if (!powerup) {
+					powerup = std::make_shared<DoubleUp>(GetRandomX(), GetRandomY(), ball.get());
 				}
 			}
+
+			if (randomVal == 0) {
+				ball->DoubleSpeed();
+				SetBackgroundColor(BLACK);
+
+			}
 		}
+		if (powerup) {
+			if (CheckCollisionCircles(Vector2{ ball->GetPosX(), ball->GetPosY() }, ball->GetRadius(), Vector2{ powerup->GetX(), powerup->GetY() }, powerup->GetRadius())) {
+				powerup->SetDraw(false);
+				powerup->Action();
+			}
+		}
+
 
 
 		ball->Update();

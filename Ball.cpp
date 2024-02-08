@@ -46,7 +46,7 @@ void Ball::SetSpeedY(int y) {
 }
 
 void Ball::DoubleSpeed() {
-    if (!has_been_doubled) {
+    if (!has_been_doubled||has_been_doubledByPowerup) {
         SetSpeedX(2);
         SetSpeedY(2);
         SetColor(RED);

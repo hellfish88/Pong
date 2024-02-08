@@ -9,6 +9,7 @@
 #include "Paddel.h"
 #include "Powerup.h"
 #include <vector>
+#include <typeinfo>
 
 namespace Pong {
 
@@ -41,7 +42,7 @@ namespace Pong {
 		std::shared_ptr<Ball> ball;
 		std::shared_ptr<Paddle> leftPaddle;
 		std::shared_ptr<Paddle> rightPaddle;
-		std::vector<std::shared_ptr<Powerup>> powerups;
+		std::shared_ptr<Powerup> powerup;
 		
 	};
 

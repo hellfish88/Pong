@@ -16,6 +16,7 @@ private:
 	int original_speedX;
 	int original_speedY;
 	bool has_been_doubled = false;
+	bool has_been_doubledByPowerup = false;
 	bool customDirection = false;
 	Circle coords;
 	float normRatio;
@@ -39,6 +40,7 @@ public:
 	void SetNormRatio(float y) { normRatio = y; }
 	void SetNormBool() { customDirection = true; }
 	void SetDoubledBool(bool sant) { has_been_doubled = sant; };
+	void SetDoublePowerUpBool(bool sant) { has_been_doubledByPowerup = sant; };
 	//void SetCollisionCounter();
 	void SetColor(Color colour) { this->color = colour; }
 	void SetUpdateTime() {
