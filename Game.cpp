@@ -29,6 +29,9 @@ namespace Pong {
 		Update();
 		Draw(ball.get(), leftPaddle.get(), rightPaddle.get());
 		EndDrawing();
+		for (auto& powerup : powerups) {
+			powerup->Draw();
+		}
 	}
 
 	void Game::Draw(Ball* ball, Paddle* leftPaddle, Paddle* rightPaddle) {
@@ -39,7 +42,7 @@ namespace Pong {
 		rightPaddle->Draw();
 		DrawText(TextFormat("%zu", leftPaddle->GetScore()), screenWidth / 4 - 20, 10, 70, WHITE);
 		DrawText(TextFormat("%zu", rightPaddle->GetScore()), 3 * screenWidth / 4 - 20, 10, 70, WHITE);
-		powerups[0]->Draw();
+		//powerups[0]->Draw();
 		
 
 		/// debug
@@ -140,7 +143,10 @@ namespace Pong {
 			if (GetRandomValue(0, 5) == 0) {
 				SetBackgroundColor(BLACK);
 				ball->DoubleSpeed();
-				powerups[0]->Delete();
+				for (auto it = powerups.begin(); it != powerups.end(); it++) {
+					powerups.erase(it);
+					break;
+				}
 			}
 		} else if (CheckCollisionCircleRec(Vector2{ ball->GetPosX(), ball->GetPosY() }, ball->GetRadius(), rightPaddle->GetDimensions())) {
 			//std::cout << "Collision. Norm val: " << rightPaddle->GetNorm(ball->GetPosY()) << std::endl;
@@ -152,7 +158,10 @@ namespace Pong {
 			if (GetRandomValue(0, 5) == 0) {
 				ball->DoubleSpeed();
 				SetBackgroundColor(BLACK);
-				powerups[0]->Delete();
+				for (auto it = powerups.begin(); it != powerups.end(); it++) {
+					powerups.erase(it);
+					break;
+				}
 			}
 		}
 
