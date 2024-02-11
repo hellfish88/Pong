@@ -11,7 +11,7 @@ float Ball::GetPosY() const {
 
 void Ball::SetPosX(int pos, bool reset) {
     if (!reset) {
-        coords.x += pos;
+        coords.x += pos * GetFrameTime() * speed_multiplier;
     } else {
         coords.x = pos;
     }
@@ -19,7 +19,7 @@ void Ball::SetPosX(int pos, bool reset) {
 
 void Ball::SetPosY(int pos, bool reset) {
     if (!reset) {
-        coords.y += pos;
+        coords.y += pos * GetFrameTime() * speed_multiplier;
     } else {
         coords.y = pos;
     }
@@ -46,17 +46,30 @@ void Ball::SetSpeedY(int y) {
 }
 
 void Ball::DoubleSpeed() {
-    if (!has_been_doubled||has_been_doubledByPowerup) {
-        SetSpeedX(2);
-        SetSpeedY(2);
+    if (!has_been_doubled) {
+        //SetSpeedX(2);
+        //SetSpeedY(2);
         SetColor(RED);
+        SetSpeedMultiplier(GetSpeedMultiplier() + 60);
         has_been_doubled = true;
+        has_been_doubledByPowerup = false;
+    }
+}
+
+void Ball::DoubleSpeedFromPowerUp() {
+    if (doubleUpCount < 1) {
+        //SetSpeedX(2);
+        //SetSpeedY(2);
+        SetColor(GREEN);
+        SetSpeedMultiplier(GetSpeedMultiplier() + 60);
+        doubleUpCount++;
     }
 }
 
 void Ball::ResetSpeed() {
     speedX = (speedX <= 0) ? original_speedX * -1 : original_speedX;
     speedY = (speedY <= 0) ? original_speedY * -1 : original_speedY;
+    doubleUpCount = 0;
 }
 
 //void Ball::SetCollisionCounter() {

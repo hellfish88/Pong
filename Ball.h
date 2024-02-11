@@ -12,10 +12,12 @@ class Ball {
 private:
 	int speedX;
 	int speedY;
-	float speed = 14;
+	float speed = 10;
+	float speed_multiplier = 60;
 	int original_speedX;
 	int original_speedY;
 	bool has_been_doubled = false;
+	size_t doubleUpCount = 0;
 	bool has_been_doubledByPowerup = false;
 	bool customDirection = false;
 	Circle coords;
@@ -30,12 +32,15 @@ public:
 	float GetPosX() const;
 	float GetPosY() const;
 	float GetRadius() const { return coords.radius; }
+	float GetSpeedMultiplier() { return speed_multiplier; }
 	//double getAtan() { return atan2(coords.x,coords.y); }
 	void SetPosX(int, bool reset = false);
 	void SetPosY(int, bool reset = false);
 	void SetSpeedX(int);
 	void SetSpeedY(int);
+	void SetSpeedMultiplier(float _multiplier) { speed_multiplier = _multiplier; }
 	void DoubleSpeed();
+	void DoubleSpeedFromPowerUp();
 	void ResetSpeed();
 	void SetNormRatio(float y) { normRatio = y; }
 	void SetNormBool() { customDirection = true; }

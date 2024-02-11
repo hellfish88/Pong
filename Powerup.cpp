@@ -13,7 +13,7 @@ void DoubleUp::Draw() {
 }
 
 void DoubleUp::Action() {
-	ball->SetDoublePowerUpBool(true);
-	ball->DoubleSpeed();
+	//ball->SetDoublePowerUpBool(true);
+	ball->DoubleSpeedFromPowerUp();
 }
 

@@ -14,7 +14,7 @@ namespace Pong {
 		ball = std::make_shared<Ball>(Circle{ .x = (float)screenWidth / 2, .y = (float)screenHeight / 2, .radius = 20 });
 		leftPaddle = std::make_shared<Paddle>(10);
 		rightPaddle = std::make_shared<Paddle>(GetScreenWidth() - 30);
-		SetTargetFPS(60); // No explaination needed
+		SetTargetFPS(600); // No explaination needed
 
 	}
 
@@ -39,14 +39,7 @@ namespace Pong {
 		rightPaddle->Draw();
 		DrawText(TextFormat("%zu", leftPaddle->GetScore()), screenWidth / 4 - 20, 10, 70, WHITE);
 		DrawText(TextFormat("%zu", rightPaddle->GetScore()), 3 * screenWidth / 4 - 20, 10, 70, WHITE);
-		//powerups[0]->Draw();
-		
-
-		/// debug
-		//if (ball->GetDoubleBool()) {
-		//	DrawText("its doubled now", screenWidth / 2, screenHeight / 4 * 2, 40, BLACK);
-		//	DrawText(TextFormat("%i", ball->GetSpeed()), screenWidth / 2, screenHeight / 4 * 3, 40, BLACK);
-		//}
+		//DrawLine(GetScreenWidth() / 2, GetScreenHeight() / 2, (GetScreenWidth() / 2) + 60, (GetScreenHeight() / 2) + 10, BLUE);
 
 		if (powerup) {
 			powerup->Draw();
@@ -99,6 +92,7 @@ namespace Pong {
 		ball->SetDoublePowerUpBool(false);
 		ball->ResetSpeed();
 		ball->SetColor(WHITE);
+		ball->SetSpeedMultiplier(60);
 		SetBackgroundColor(origBackgroundColor);
 		if (GetRandomValue(0, 100) % 33 == 0) {
 			ball->DoubleSpeed();
