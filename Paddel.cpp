@@ -23,6 +23,18 @@ void Paddle::Update(float speed) {
 	} else if (IsKeyDown(KEY_UP)) {
 		SetY(speed * -1);
 	}
+
+	if (this->GetY() + this->GetHeight() > GetScreenHeight()) {
+		this->ResetPaddle();
+	}
+
+	if (this->GetY() < 0) {
+		this->ResetPaddle();
+	}
+}
+
+void Paddle::ResetPaddle() {
+	stats.y = (float)GetScreenHeight() / 2;
 }
 
 Rectangle Paddle::GetDimensions() const {

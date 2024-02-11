@@ -24,6 +24,7 @@ public:
 	void SetY(float);
 	void Update(float speed);
 	void SetScore() { score++; }
+	void ResetPaddle();
 	size_t GetScore() { return score; }
 	Rectangle GetDimensions() const;
 	

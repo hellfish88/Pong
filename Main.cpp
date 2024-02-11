@@ -7,10 +7,12 @@ int main(void) {
     const int screenHeight = 800;
 
 
-    Pong::Game game(screenWidth, screenHeight, "Spel");
+    //Pong::Game game(screenWidth, screenHeight, "Spel");
 
-    while (!game.GameShouldClose()) {
-        game.Tick();
+    std::shared_ptr<Pong::Game> game = std::make_shared<Pong::Game>(screenWidth, screenHeight, "Spel");
+
+    while (!game->GameShouldClose()) {
+        game->Tick();
     }
 
 

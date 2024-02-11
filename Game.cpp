@@ -93,6 +93,8 @@ namespace Pong {
 		ball->ResetSpeed();
 		ball->SetColor(WHITE);
 		ball->SetSpeedMultiplier(60);
+		rightPaddle->ResetPaddle();
+		leftPaddle->ResetPaddle();
 		SetBackgroundColor(origBackgroundColor);
 		if (GetRandomValue(0, 100) % 33 == 0) {
 			ball->DoubleSpeed();
