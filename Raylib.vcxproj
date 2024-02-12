@@ -123,7 +123,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\dev\vcpkg\packages\raylib_x64-windows\include\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\dev\vcpkg\packages\raygui_x64-windows\include\;C:\dev\vcpkg\packages\raylib_x64-windows\include\</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
@@ -132,7 +132,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\dev\vcpkg\packages\raylib_x64-windows\lib\</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\dev\vcpkg\packages\raygui_x64-windows\include;C:\dev\vcpkg\packages\raylib_x64-windows\lib\</AdditionalLibraryDirectories>
       <AdditionalDependencies>raylib.lib;winmm.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
       <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
     </Link>
@@ -148,6 +148,7 @@
     <ClInclude Include="Ball.h" />
     <ClInclude Include="Circle.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="Lobby.h" />
     <ClInclude Include="Paddel.h" />
     <ClInclude Include="Powerup.h" />
   </ItemGroup>
