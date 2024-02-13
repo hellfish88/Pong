@@ -13,7 +13,7 @@ protected:
 	Paddle* paddle;
 public:
 	Powerup(float _x, float _y) :
-		position{ .x = _x, .y = _y }, color(WHITE), ball(nullptr), paddle(nullptr) {
+		position{ position.x = _x, position.y = _y }, color(WHITE), ball(nullptr), paddle(nullptr) {
 	}
 	float GetY() { return position.y; }
 	float GetX() { return position.x; }

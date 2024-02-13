@@ -11,6 +11,7 @@
 #include <vector>
 #include <typeinfo>
 
+
 namespace Pong {
 
 	class Game {

@@ -1,4 +1,4 @@
-#include "Game.h"
+#include "Lobby.h"
 
 
 int main(void) {
@@ -9,10 +9,12 @@ int main(void) {
 
     //Pong::Game game(screenWidth, screenHeight, "Spel");
 
-    std::shared_ptr<Pong::Game> game = std::make_shared<Pong::Game>(screenWidth, screenHeight, "Spel");
+    std::shared_ptr<Lobby> game = std::make_shared<Lobby>(screenWidth, screenHeight, "Spel");
+    //std::shared_ptr<Pong::Game> game = std::make_shared<Pong::Game>(screenWidth, screenHeight, "Spel");
+
 
     while (!game->GameShouldClose()) {
-        game->Tick();
+        game->Make();
     }
 
 

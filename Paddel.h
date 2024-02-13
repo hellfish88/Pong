@@ -15,7 +15,7 @@ public:
 	float GetMidY() const { return stats.y + stats.height / 2; }
 	float GetNorm(float impactY) const;
 	Paddle(float posx) :
-		stats{.x = posx, .y = (float)GetScreenHeight() / 2, .width = 20, .height = (float)GetScreenHeight() / 6 } {
+		stats{stats.x = posx, stats.y = (float)GetScreenHeight() / 2, stats.width = 20, stats.height = (float)GetScreenHeight() / 6 } {
 	};
 	void Draw()  {
 		//DrawRectangle(posx, posy, 20, height, WHITE);

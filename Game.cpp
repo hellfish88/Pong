@@ -9,12 +9,12 @@ namespace Pong {
 
 		assert(!IsWindowReady());
 
-		InitWindow(screenWidth, screenHeight, title.c_str()); // Create main window
+		//InitWindow(screenWidth, screenHeight, title.c_str()); // Create main window // Window now created in lobby.cpp
 
-		ball = std::make_shared<Ball>(Circle{ .x = (float)screenWidth / 2, .y = (float)screenHeight / 2, .radius = 20 });
+		ball = std::make_shared<Ball>(Circle{  (float)screenWidth / 2, (float)screenHeight / 2, 20 });
 		leftPaddle = std::make_shared<Paddle>(10);
 		rightPaddle = std::make_shared<Paddle>(GetScreenWidth() - 30);
-		SetTargetFPS(600); // No explaination needed
+		SetTargetFPS(100); // No explaination needed
 
 	}
 
@@ -28,7 +28,7 @@ namespace Pong {
 		Update();
 		Draw(ball.get(), leftPaddle.get(), rightPaddle.get());
 		EndDrawing();
-
+		
 	}
 
 	void Game::Draw(Ball* ball, Paddle* leftPaddle, Paddle* rightPaddle) {
