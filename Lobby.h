@@ -5,13 +5,14 @@
 #include <string>
 #include <assert.h>
 #include "Game.h"
+#include <vector>
 //#define RAYGUI_IMPLEMENTATION
 
 
 
 
 class Lobby {
-private:
+protected:
 	int screenHeight;
 	int screenWidth;
 	std::string title;
@@ -30,4 +31,15 @@ public:
 	// // // 
 	bool GameShouldClose() const { return WindowShouldClose(); }
 	void Make();
+};
+
+class SettingsMenu : public Lobby {
+private:
+	std::vector<std::string> settings{ "test1", "test2", "test3"};
+public:
+	SettingsMenu(int _screenhHeight, int _screenWidht, std::string _title)
+		: Lobby(_screenhHeight, _screenWidht, _title) { }
+	~SettingsMenu() noexcept;
+	void draw();
+	//void close() { this = nullptr; }
 };

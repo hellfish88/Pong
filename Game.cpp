@@ -46,38 +46,6 @@ namespace Pong {
 		}
 	}
 
-	//void Game::UpdateCPU(Paddle* cpu, const Ball* ball) { // move CPU paddle
-
-
-	//	size_t limitation{ 0 };
-
-	//	//if (GetRandomValue(0, 100) % 10 == 0) {
-	//	//	limitation = 4;
-	//	//} else if (GetRandomValue(0, 100) % 5 == 0) {
-	//	//	limitation = -2;
-	//	//}
-	//	
-
-	//	float paddieDirectionSpeed = (ball->GetSpeed() <= 0) ? -1 : 1;
-	//	//speed *= paddieDirectionSpeed;
-	//	float speed{ 0 };
-	//	
-	//	float ballPos = ball->GetPosY();
-	//	float paddlePos = cpu->GetMidY();
-	//	float diff = std::abs(ballPos - paddlePos);
-	//	if (ballPos < paddlePos) {
-	//		speed = -7;
-	//	} else {
-	//		speed = 7;
-	//	}
-	//	// Try to remove tremble of paddle
-	//	if (diff < 20)
-	//		speed = 1;
-
-	//	cpu->SetY((speed <= 0) ? speed - limitation : speed + limitation);
-	//	//cpu->SetY(speed);
-
-	//}
 
 	void Game::ResetBall() {
 

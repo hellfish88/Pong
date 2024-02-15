@@ -63,9 +63,9 @@ void Paddle::UpdateCPU(float ballPos, float ballspeed) { // move CPU paddle
 	float paddlePos = this->GetMidY();
 	float diff = std::abs(ballPos - paddlePos);
 	if (ballPos < paddlePos) {
-		speed = -7;
+		speed = CPUpaddleSpeed * -1;
 	} else {
-		speed = 7;
+		speed = CPUpaddleSpeed;
 	}
 	// Try to remove tremble of paddle
 	if (diff < 20)

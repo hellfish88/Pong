@@ -9,6 +9,7 @@
 class Paddle {
 private:
 	float paddleSpeed = Settings::Paddle::paddleSpeed;
+	float CPUpaddleSpeed = Settings::Paddle::cpuPaddleSpeed;
 	Rectangle stats;
 	size_t score = 0;
 	bool singlePlayer = Settings::General::singlePlayer;
