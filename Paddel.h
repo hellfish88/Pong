@@ -1,6 +1,6 @@
 #pragma once
-#include "Ball.h"
-//#include "raylib.h"
+//#include "Ball.h"
+#include "raylib.h"
 //#include "Coords.h"
 #include <algorithm>
 #include "Settings.h"
@@ -15,7 +15,7 @@ private:
 	bool isCPU = false;
 public:
 	//int GetX();
-	void UpdateCPU(const Ball*);
+	void UpdateCPU(float ballPos, float ballspeed);
 	float GetY() const{ return stats.y; }
 	float GetX() const { return stats.x; }
 	float GetHeight() const { return stats.height; }

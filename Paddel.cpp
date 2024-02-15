@@ -43,7 +43,7 @@ Rectangle Paddle::GetDimensions() const {
 	return stats;
 }
 
-void Paddle::UpdateCPU(const Ball* ball) { // move CPU paddle
+void Paddle::UpdateCPU(float ballPos, float ballspeed) { // move CPU paddle
 
 
 	size_t limitation{ 0 };
@@ -55,11 +55,11 @@ void Paddle::UpdateCPU(const Ball* ball) { // move CPU paddle
 	//}
 
 
-	float paddieDirectionSpeed = (ball->GetSpeed() <= 0) ? -1 : 1;
+	float paddieDirectionSpeed = (ballspeed <= 0) ? -1 : 1;
 	//speed *= paddieDirectionSpeed;
 	float speed{ 0 };
 	
-	float ballPos = ball->GetPosY();
+	//float ballPos = ball->GetPosY();
 	float paddlePos = this->GetMidY();
 	float diff = std::abs(ballPos - paddlePos);
 	if (ballPos < paddlePos) {
