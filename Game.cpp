@@ -13,7 +13,7 @@ namespace Pong {
 
 		ball = std::make_shared<Ball>(Circle{  (float)screenWidth / 2, (float)screenHeight / 2, 20 });
 		leftPaddle = std::make_shared<Paddle>(10);
-		rightPaddle = std::make_shared<Paddle>(GetScreenWidth() - 30);
+		rightPaddle = std::make_shared<Paddle>(GetScreenWidth() - 30, true);
 		SetTargetFPS(100); // No explaination needed
 
 	}
@@ -46,38 +46,38 @@ namespace Pong {
 		}
 	}
 
-	void Game::UpdateCPU(Paddle* cpu, const Ball* ball) { // move CPU paddle
+	//void Game::UpdateCPU(Paddle* cpu, const Ball* ball) { // move CPU paddle
 
 
-		size_t limitation{ 0 };
+	//	size_t limitation{ 0 };
 
-		//if (GetRandomValue(0, 100) % 10 == 0) {
-		//	limitation = 4;
-		//} else if (GetRandomValue(0, 100) % 5 == 0) {
-		//	limitation = -2;
-		//}
-		
+	//	//if (GetRandomValue(0, 100) % 10 == 0) {
+	//	//	limitation = 4;
+	//	//} else if (GetRandomValue(0, 100) % 5 == 0) {
+	//	//	limitation = -2;
+	//	//}
+	//	
 
-		float paddieDirectionSpeed = (ball->GetSpeed() <= 0) ? -1 : 1;
-		//speed *= paddieDirectionSpeed;
-		float speed{ 0 };
-		
-		float ballPos = ball->GetPosY();
-		float paddlePos = cpu->GetMidY();
-		float diff = std::abs(ballPos - paddlePos);
-		if (ballPos < paddlePos) {
-			speed = -7;
-		} else {
-			speed = 7;
-		}
-		// Try to remove tremble of paddle
-		if (diff < 20)
-			speed = 1;
+	//	float paddieDirectionSpeed = (ball->GetSpeed() <= 0) ? -1 : 1;
+	//	//speed *= paddieDirectionSpeed;
+	//	float speed{ 0 };
+	//	
+	//	float ballPos = ball->GetPosY();
+	//	float paddlePos = cpu->GetMidY();
+	//	float diff = std::abs(ballPos - paddlePos);
+	//	if (ballPos < paddlePos) {
+	//		speed = -7;
+	//	} else {
+	//		speed = 7;
+	//	}
+	//	// Try to remove tremble of paddle
+	//	if (diff < 20)
+	//		speed = 1;
 
-		cpu->SetY((speed <= 0) ? speed - limitation : speed + limitation);
-		//cpu->SetY(speed);
+	//	cpu->SetY((speed <= 0) ? speed - limitation : speed + limitation);
+	//	//cpu->SetY(speed);
 
-	}
+	//}
 
 	void Game::ResetBall() {
 
@@ -127,7 +127,7 @@ namespace Pong {
 		}
 
 
-		UpdateCPU(rightPaddle.get(), ball.get());
+		//UpdateCPU(rightPaddle.get(), ball.get());
 		//UpdateCPU(leftPaddle.get(), ball.get());
 
 		if (CheckCollisionCircleRec(Vector2{ ball->GetPosX(), ball->GetPosY() }, ball->GetRadius(), leftPaddle->GetDimensions())) {
@@ -175,7 +175,11 @@ namespace Pong {
 
 
 		ball->Update();
-		leftPaddle->Update(7); // paddle speed in here
+		leftPaddle->Update();
+		if (rightPaddle->GetCPU()) {
+
+			rightPaddle->UpdateCPU(ball.get());
+		}
 	}
 
 

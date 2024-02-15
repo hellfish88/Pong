@@ -6,16 +6,18 @@
 #include "Circle.h"
 #include <cmath>
 #include "Paddel.h"
+#include "Settings.h"
 
 class Ball {
 
 private:
-	int speedX;
-	int speedY;
-	float speed = 10;
-	float speed_multiplier = 60;
+
+	float initialSpeed = Settings::Ball::ballSpeed;
+	float* speed_multiplier = &Settings::Ball::ballMultiplier;
 	int original_speedX;
 	int original_speedY;
+	float speedX;
+	float speedY;
 	bool has_been_doubled = false;
 	size_t doubleUpCount = 0;
 	bool has_been_doubledByPowerup = false;
@@ -32,13 +34,13 @@ public:
 	float GetPosX() const;
 	float GetPosY() const;
 	float GetRadius() const { return coords.radius; }
-	float GetSpeedMultiplier() { return speed_multiplier; }
+	float GetSpeedMultiplier() { return *speed_multiplier; }
 	//double getAtan() { return atan2(coords.x,coords.y); }
 	void SetPosX(int, bool reset = false);
 	void SetPosY(int, bool reset = false);
 	void SetSpeedX(int);
 	void SetSpeedY(int);
-	void SetSpeedMultiplier(float _multiplier) { speed_multiplier = _multiplier; }
+	void SetSpeedMultiplier(float _multiplier) { *speed_multiplier = _multiplier; }
 	void DoubleSpeed();
 	void DoubleSpeedFromPowerUp();
 	void ResetSpeed();

@@ -29,7 +29,7 @@ namespace Pong {
 
 		void Update();
 		void Draw(Ball* ball, Paddle* leftPaddle, Paddle* RightPaddle);
-		void UpdateCPU(Paddle*, const Ball*);
+		//void UpdateCPU(Paddle*, const Ball*);
 		void ResetBall();
 		void SetBackgroundColor(Color colour) { this->backgroundColor = colour; }
 		float GetRandomX(); // for the powerup classes to spawn 

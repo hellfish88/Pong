@@ -11,7 +11,7 @@ float Ball::GetPosY() const {
 
 void Ball::SetPosX(int pos, bool reset) {
     if (!reset) {
-        coords.x += pos * GetFrameTime() * speed_multiplier;
+        coords.x += pos * GetFrameTime() * *speed_multiplier;
     } else {
         coords.x = pos;
     }
@@ -19,11 +19,10 @@ void Ball::SetPosX(int pos, bool reset) {
 
 void Ball::SetPosY(int pos, bool reset) {
     if (!reset) {
-        coords.y += pos * GetFrameTime() * speed_multiplier;
+        coords.y += pos * GetFrameTime() * *speed_multiplier;
     } else {
         coords.y = pos;
     }
-
 }
 
 void Ball::SetSpeedX(int x) {
@@ -72,13 +71,10 @@ void Ball::ResetSpeed() {
     doubleUpCount = 0;
 }
 
-//void Ball::SetCollisionCounter() {
-//    //timeUpdated = GetTime();
-//}
 
 Ball::Ball(Circle coords_val) :
 
-    coords(coords_val), speedX(7), speedY(7){
+    coords(coords_val), speedX(initialSpeed), speedY(initialSpeed){
     original_speedX = speedX;
     original_speedY = speedY;
 }
