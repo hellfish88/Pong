@@ -9,13 +9,12 @@ namespace Pong {
 
 		assert(!IsWindowReady());
 
-		InitWindow(screenWidth, screenHeight, title.c_str()); // Create main window
+		//InitWindow(screenWidth, screenHeight, title.c_str()); // Create main window // Window now created in lobby.cpp
 
-		ball = std::make_shared<Ball>(Circle{ .x = (float)screenWidth / 2, .y = (float)screenHeight / 2, .radius = 20 });
-		leftPaddle = std::make_shared<Paddle>(10);
-		rightPaddle = std::make_shared<Paddle>(GetScreenWidth() - 30);
-
-		SetTargetFPS(60); // No explaination needed
+		ball = std::make_shared<Ball>(Circle{  (float)screenWidth / 2, (float)screenHeight / 2, 20 });
+		leftPaddle = std::make_shared<Paddle>(10, false);
+		rightPaddle = std::make_shared<Paddle>(GetScreenWidth() - 30, true);
+		SetTargetFPS(100); // No explaination needed
 
 	}
 
@@ -29,6 +28,7 @@ namespace Pong {
 		Update();
 		Draw(ball.get(), leftPaddle.get(), rightPaddle.get());
 		EndDrawing();
+		
 	}
 
 	void Game::Draw(Ball* ball, Paddle* leftPaddle, Paddle* rightPaddle) {
@@ -39,67 +39,47 @@ namespace Pong {
 		rightPaddle->Draw();
 		DrawText(TextFormat("%zu", leftPaddle->GetScore()), screenWidth / 4 - 20, 10, 70, WHITE);
 		DrawText(TextFormat("%zu", rightPaddle->GetScore()), 3 * screenWidth / 4 - 20, 10, 70, WHITE);
+		//DrawLine(GetScreenWidth() / 2, GetScreenHeight() / 2, (GetScreenWidth() / 2) + 60, (GetScreenHeight() / 2) + 10, BLUE);
 
-		/// debug
-		//if (ball->GetDoubleBool()) {
-		//	DrawText("its doubled now", screenWidth / 2, screenHeight / 4 * 2, 40, BLACK);
-		//	DrawText(TextFormat("%i", ball->GetSpeed()), screenWidth / 2, screenHeight / 4 * 3, 40, BLACK);
-		//}
-
-
-	}
-
-	void Game::UpdateCPU(Paddle* cpu, const Ball* ball) { // move CPU paddle
-
-
-		size_t limitation{ 0 };
-
-		//if (GetRandomValue(0, 100) % 10 == 0) {
-		//	limitation = 4;
-		//} else if (GetRandomValue(0, 100) % 5 == 0) {
-		//	limitation = -2;
-		//}
-		
-
-		float paddieDirectionSpeed = (ball->GetSpeed() <= 0) ? -1 : 1;
-		//speed *= paddieDirectionSpeed;
-		float speed{ 0 };
-		
-		float ballPos = ball->GetPosY();
-		float paddlePos = cpu->GetMidY();
-		float diff = std::abs(ballPos - paddlePos);
-		if (ballPos < paddlePos) {
-			speed = -7;
-		} else {
-			speed = 7;
+		if (powerup) {
+			powerup->Draw();
 		}
-		// Try to remove tremble of paddle
-		if (diff < 20)
-			speed = 1;
-
-		cpu->SetY((speed <= 0) ? speed - limitation : speed + limitation);
-		//cpu->SetY(speed);
-
 	}
+
 
 	void Game::ResetBall() {
 
-		int direction_choices[2] = { -1, 1 };
+		//int direction_choices[2] = { -1, 1 };
 
-		ball->SetSpeedX(direction_choices[GetRandomValue(0, 1)]);
-		ball->SetSpeedY(direction_choices[GetRandomValue(0, 1)]);
+		//ball->SetSpeedX(direction_choices[GetRandomValue(0, 1)]);
+		//ball->SetSpeedY(direction_choices[GetRandomValue(0, 1)]);
 
-		ball->SetPosX(screenWidth / 2, true);
-		ball->SetPosY(screenHeight / 2, true);
-		ball->SetDoubledBool(false);
-		ball->ResetSpeed();
-		ball->SetColor(WHITE);
+		//ball->SetPosX(screenWidth / 2, true);
+		//ball->SetPosY(screenHeight / 2, true);
+		//ball->SetDoubledBool(false);
+		//ball->SetDoublePowerUpBool(false);
+		//ball->ResetSpeed();
+		//ball->SetColor(WHITE);
+		//ball->SetSpeedMultiplier(Settings::Ball::ballMultiplier);
+		ball->ResetBall();
+
+		rightPaddle->ResetPaddle();
+		leftPaddle->ResetPaddle();
 		SetBackgroundColor(origBackgroundColor);
-		if (GetRandomValue(0, 100) % 33 == 0) {
-			ball->DoubleSpeed();
-		}
+		//if (GetRandomValue(0, 100) % 33 == 0) {
+		//	ball->DoubleSpeed();
+		//}
+		if (powerup)
+			powerup = nullptr;
 	}
 
+	float Game::GetRandomX() {
+		return GetRandomValue((GetScreenWidth() / 4), 3 * (GetScreenWidth() / 4));
+	}
+
+	float Game::GetRandomY() {
+		return GetRandomValue(20, GetScreenHeight());
+	}
 
 	void Game::Update() {
 		if (ball->GetPosX() + ball->GetRadius() >= screenWidth) {
@@ -117,8 +97,7 @@ namespace Pong {
 		}
 
 
-
-		UpdateCPU(rightPaddle.get(), ball.get());
+		//UpdateCPU(rightPaddle.get(), ball.get());
 		//UpdateCPU(leftPaddle.get(), ball.get());
 
 		if (CheckCollisionCircleRec(Vector2{ ball->GetPosX(), ball->GetPosY() }, ball->GetRadius(), leftPaddle->GetDimensions())) {
@@ -131,6 +110,7 @@ namespace Pong {
 			if (GetRandomValue(0, 5) == 0) {
 				SetBackgroundColor(BLACK);
 				ball->DoubleSpeed();
+
 			}
 		} else if (CheckCollisionCircleRec(Vector2{ ball->GetPosX(), ball->GetPosY() }, ball->GetRadius(), rightPaddle->GetDimensions())) {
 			//std::cout << "Collision. Norm val: " << rightPaddle->GetNorm(ball->GetPosY()) << std::endl;
@@ -139,15 +119,37 @@ namespace Pong {
 			ball->SetNormRatio(rightPaddle->GetNorm(ball->GetPosY()));
 			ball->SetSpeedY(-1);
 			ball->SetSpeedX(-1);
-			if (GetRandomValue(0, 5) == 0) {
+
+			int randomVal = GetRandomValue(0, 5);
+
+
+			if (randomVal <= 1) {
+				if (!powerup) {
+					powerup = std::make_shared<DoubleUp>(GetRandomX(), GetRandomY(), ball.get());
+				}
+			}
+
+			if (randomVal == 0) {
 				ball->DoubleSpeed();
 				SetBackgroundColor(BLACK);
+
+			}
+		}
+		if (powerup) {
+			if (CheckCollisionCircles(Vector2{ ball->GetPosX(), ball->GetPosY() }, ball->GetRadius(), Vector2{ powerup->GetX(), powerup->GetY() }, powerup->GetRadius())) {
+				powerup->SetDraw(false);
+				powerup->Action();
 			}
 		}
 
 
+
 		ball->Update();
-		leftPaddle->Update(7); // paddle speed in here
+		leftPaddle->Update();
+		if (rightPaddle->GetCPU()) {
+
+			rightPaddle->UpdateCPU(ball->GetPosY(), ball->GetSpeed());
+		}
 	}
 
 

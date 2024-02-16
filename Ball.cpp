@@ -11,7 +11,7 @@ float Ball::GetPosY() const {
 
 void Ball::SetPosX(int pos, bool reset) {
     if (!reset) {
-        coords.x += pos;
+        coords.x += pos * GetFrameTime() * *speed_multiplier;
     } else {
         coords.x = pos;
     }
@@ -19,11 +19,10 @@ void Ball::SetPosX(int pos, bool reset) {
 
 void Ball::SetPosY(int pos, bool reset) {
     if (!reset) {
-        coords.y += pos;
+        coords.y += pos * GetFrameTime() * *speed_multiplier;
     } else {
         coords.y = pos;
     }
-
 }
 
 void Ball::SetSpeedX(int x) {
@@ -47,27 +46,61 @@ void Ball::SetSpeedY(int y) {
 
 void Ball::DoubleSpeed() {
     if (!has_been_doubled) {
-        SetSpeedX(2);
-        SetSpeedY(2);
+        //SetSpeedX(2);
+        //SetSpeedY(2);
         SetColor(RED);
+        SetSpeedMultiplier(GetSpeedMultiplier() + 60);
         has_been_doubled = true;
+        has_been_doubledByPowerup = false;
+    }
+}
+
+void Ball::DoubleSpeedFromPowerUp() {
+    if (doubleUpCount < 1) {
+        //SetSpeedX(2);
+        //SetSpeedY(2);
+        SetColor(GREEN);
+        SetSpeedMultiplier(GetSpeedMultiplier() + 60);
+        doubleUpCount++;
     }
 }
 
 void Ball::ResetSpeed() {
     speedX = (speedX <= 0) ? original_speedX * -1 : original_speedX;
     speedY = (speedY <= 0) ? original_speedY * -1 : original_speedY;
+    doubleUpCount = 0;
 }
 
-//void Ball::SetCollisionCounter() {
-//    //timeUpdated = GetTime();
-//}
+void Ball::ResetBall() {
+    int directionChoices[2] = { -1, 1 };
+    SetSpeedX(directionChoices[GetRandomValue(0, 1)]);
+    SetSpeedY(directionChoices[GetRandomValue(0, 1)]);
+
+    SetPosX(GetScreenWidth() / 2, true);
+    SetPosY(GetScreenHeight() / 2, true);
+    SetDoubledBool(false);
+    SetDoublePowerUpBool(false);
+    ResetSpeed();
+    SetColor(WHITE);
+    SetSpeedMultiplier(original_speed_multiplier);
+    //std::cout << "Orig Multi:" << original_speed_multiplier << std::endl; // debug
+    if (GetRandomValue(0, 100) % 33 == 0) {
+        DoubleSpeed();
+    }
+
+}
+
+void Ball::SetOriginalBallMultiplier() {
+
+}
+
 
 Ball::Ball(Circle coords_val) :
 
-    coords(coords_val), speedX(7), speedY(7){
+    coords(coords_val), speedX(initialSpeed), speedY(initialSpeed){
     original_speedX = speedX;
     original_speedY = speedY;
+    original_speed_multiplier = GetSpeedMultiplier();
 }
 
 void Ball::Update() {
