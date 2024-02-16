@@ -14,6 +14,7 @@ private:
 
 	float initialSpeed = Settings::Ball::ballSpeed;
 	float* speed_multiplier = &Settings::Ball::ballMultiplier;
+	float original_speed_multiplier;
 	int original_speedX;
 	int original_speedY;
 	float speedX;
@@ -44,10 +45,12 @@ public:
 	void DoubleSpeed();
 	void DoubleSpeedFromPowerUp();
 	void ResetSpeed();
+	void ResetBall();
 	void SetNormRatio(float y) { normRatio = y; }
 	void SetNormBool() { customDirection = true; }
 	void SetDoubledBool(bool sant) { has_been_doubled = sant; };
 	void SetDoublePowerUpBool(bool sant) { has_been_doubledByPowerup = sant; };
+	void SetOriginalBallMultiplier();
 	//void SetCollisionCounter();
 	void SetColor(Color colour) { this->color = colour; }
 	void SetUpdateTime() {

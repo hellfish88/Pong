@@ -71,12 +71,36 @@ void Ball::ResetSpeed() {
     doubleUpCount = 0;
 }
 
+void Ball::ResetBall() {
+    int directionChoices[2] = { -1, 1 };
+    SetSpeedX(directionChoices[GetRandomValue(0, 1)]);
+    SetSpeedY(directionChoices[GetRandomValue(0, 1)]);
+
+    SetPosX(GetScreenWidth() / 2, true);
+    SetPosY(GetScreenHeight() / 2, true);
+    SetDoubledBool(false);
+    SetDoublePowerUpBool(false);
+    ResetSpeed();
+    SetColor(WHITE);
+    SetSpeedMultiplier(original_speed_multiplier);
+    //std::cout << "Orig Multi:" << original_speed_multiplier << std::endl; // debug
+    if (GetRandomValue(0, 100) % 33 == 0) {
+        DoubleSpeed();
+    }
+
+}
+
+void Ball::SetOriginalBallMultiplier() {
+
+}
+
 
 Ball::Ball(Circle coords_val) :
 
     coords(coords_val), speedX(initialSpeed), speedY(initialSpeed){
     original_speedX = speedX;
     original_speedY = speedY;
+    original_speed_multiplier = GetSpeedMultiplier();
 }
 
 void Ball::Update() {

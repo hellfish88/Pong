@@ -1,6 +1,7 @@
 #include "Lobby.h"
 #define RAYGUI_IMPLEMENTATION
 #include "raygui.h"
+#include <iostream>
 
 Lobby::Lobby(int _screenWidht, int _screenHeight, std::string _title)
 	: screenHeight(_screenHeight), screenWidth(_screenWidht), title(_title){
@@ -24,14 +25,21 @@ void SettingsMenu::draw() {
 	BeginDrawing();
 	ClearBackground(RED);
 
-	for (std::string setting : SettingsMenu::settings) {
-		DrawText(setting.c_str(), buttonX, _buttonY, 20, GREEN);
-		_buttonY += buttonSpacing;
-		if (GuiButton(Rectangle{ screenWidth - (buttonWidth * 2), 0, buttonWidth, buttonHeight }, "Back")) {
-			this->Make();
-			
-		}
+	GuiToggle(Rectangle{ 50, 50, buttonWidth , buttonHeight }, "Multiplayer", &Settings::General::singlePlayer);
 
+
+	for (auto setting : SettingsMenu::settings) {
+		//DrawText(setting.c_str(), buttonX, _buttonY, 20, GREEN);
+		GuiSlider(Rectangle{ buttonX, _buttonY, buttonWidth, buttonHeight }, setting.name.c_str(), "Max", setting.setting, setting.min, setting.max);
+		DrawText(TextFormat("%d", (int)*(setting.setting)), buttonX - 20, _buttonY, 20, BLACK);
+		//GuiValueBox(Rectangle{ buttonX, _buttonY + buttonSpacing, buttonWidth + 50, buttonHeight }, setting.first.c_str(), (int*)setting.second, 0, 100, true);
+		_buttonY += buttonSpacing;
+		std::cout << Settings::Paddle::cpuPaddleSpeed << std::endl;
+	}
+	
+
+	if (GuiButton(Rectangle{ screenWidth - (buttonWidth * 2), 0, buttonWidth, buttonHeight }, "Back")) {
+		this->Make();
 	}
 	EndDrawing();
 }

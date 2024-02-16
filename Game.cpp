@@ -49,24 +49,26 @@ namespace Pong {
 
 	void Game::ResetBall() {
 
-		int direction_choices[2] = { -1, 1 };
+		//int direction_choices[2] = { -1, 1 };
 
-		ball->SetSpeedX(direction_choices[GetRandomValue(0, 1)]);
-		ball->SetSpeedY(direction_choices[GetRandomValue(0, 1)]);
+		//ball->SetSpeedX(direction_choices[GetRandomValue(0, 1)]);
+		//ball->SetSpeedY(direction_choices[GetRandomValue(0, 1)]);
 
-		ball->SetPosX(screenWidth / 2, true);
-		ball->SetPosY(screenHeight / 2, true);
-		ball->SetDoubledBool(false);
-		ball->SetDoublePowerUpBool(false);
-		ball->ResetSpeed();
-		ball->SetColor(WHITE);
-		ball->SetSpeedMultiplier(60);
+		//ball->SetPosX(screenWidth / 2, true);
+		//ball->SetPosY(screenHeight / 2, true);
+		//ball->SetDoubledBool(false);
+		//ball->SetDoublePowerUpBool(false);
+		//ball->ResetSpeed();
+		//ball->SetColor(WHITE);
+		//ball->SetSpeedMultiplier(Settings::Ball::ballMultiplier);
+		ball->ResetBall();
+
 		rightPaddle->ResetPaddle();
 		leftPaddle->ResetPaddle();
 		SetBackgroundColor(origBackgroundColor);
-		if (GetRandomValue(0, 100) % 33 == 0) {
-			ball->DoubleSpeed();
-		}
+		//if (GetRandomValue(0, 100) % 33 == 0) {
+		//	ball->DoubleSpeed();
+		//}
 		if (powerup)
 			powerup = nullptr;
 	}
