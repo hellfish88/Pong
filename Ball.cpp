@@ -29,7 +29,7 @@ void Ball::SetSpeedX(int x) {
     if (GetTime() - timeUpdated < 0.3 && collisionCount > 1) {/// Fix ball stuck in paddle bug
         speedX *= x;
         coords.x += (coords.x > GetScreenWidth()/2)? -5 : 5; 
-        std::cout << "Ball pos fixed! bugfix worked!!" << std::endl;
+        //std::cout << "Ball pos fixed! bugfix worked!!" << std::endl; //debug
     } else {
         speedX *= x;
     }

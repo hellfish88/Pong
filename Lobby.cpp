@@ -34,7 +34,7 @@ void SettingsMenu::draw() {
 		DrawText(TextFormat("%d", (int)*(setting.setting)), buttonX - 20, _buttonY, 20, BLACK);
 		//GuiValueBox(Rectangle{ buttonX, _buttonY + buttonSpacing, buttonWidth + 50, buttonHeight }, setting.first.c_str(), (int*)setting.second, 0, 100, true);
 		_buttonY += buttonSpacing;
-		std::cout << Settings::Paddle::cpuPaddleSpeed << std::endl;
+		//std::cout << Settings::Paddle::cpuPaddleSpeed << std::endl; // debug
 	}
 	
 

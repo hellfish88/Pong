@@ -22,7 +22,6 @@ namespace Pong {
 
 	void Game::Tick() {
 
-		//ClearBackground(Color{ 225, 87, 51, 255 });
 		ClearBackground(backgroundColor);
 		BeginDrawing();
 		Update();
@@ -39,7 +38,6 @@ namespace Pong {
 		rightPaddle->Draw();
 		DrawText(TextFormat("%zu", leftPaddle->GetScore()), screenWidth / 4 - 20, 10, 70, WHITE);
 		DrawText(TextFormat("%zu", rightPaddle->GetScore()), 3 * screenWidth / 4 - 20, 10, 70, WHITE);
-		//DrawLine(GetScreenWidth() / 2, GetScreenHeight() / 2, (GetScreenWidth() / 2) + 60, (GetScreenHeight() / 2) + 10, BLUE);
 
 		if (powerup) {
 			powerup->Draw();
@@ -49,26 +47,13 @@ namespace Pong {
 
 	void Game::ResetBall() {
 
-		//int direction_choices[2] = { -1, 1 };
 
-		//ball->SetSpeedX(direction_choices[GetRandomValue(0, 1)]);
-		//ball->SetSpeedY(direction_choices[GetRandomValue(0, 1)]);
-
-		//ball->SetPosX(screenWidth / 2, true);
-		//ball->SetPosY(screenHeight / 2, true);
-		//ball->SetDoubledBool(false);
-		//ball->SetDoublePowerUpBool(false);
-		//ball->ResetSpeed();
-		//ball->SetColor(WHITE);
-		//ball->SetSpeedMultiplier(Settings::Ball::ballMultiplier);
 		ball->ResetBall();
 
 		rightPaddle->ResetPaddle();
 		leftPaddle->ResetPaddle();
 		SetBackgroundColor(origBackgroundColor);
-		//if (GetRandomValue(0, 100) % 33 == 0) {
-		//	ball->DoubleSpeed();
-		//}
+
 		if (powerup)
 			powerup = nullptr;
 	}
@@ -96,12 +81,7 @@ namespace Pong {
 			ball->SetSpeedY(-1);
 		}
 
-
-		//UpdateCPU(rightPaddle.get(), ball.get());
-		//UpdateCPU(leftPaddle.get(), ball.get());
-
 		if (CheckCollisionCircleRec(Vector2{ ball->GetPosX(), ball->GetPosY() }, ball->GetRadius(), leftPaddle->GetDimensions())) {
-			//std::cout << "Collision. Norm val: " << leftPaddle->GetNorm(ball->GetPosY()) << std::endl;
 			ball->SetUpdateTime();
 			ball->SetNormBool();
 			ball->SetNormRatio(leftPaddle->GetNorm(ball->GetPosY()));
@@ -113,7 +93,7 @@ namespace Pong {
 
 			}
 		} else if (CheckCollisionCircleRec(Vector2{ ball->GetPosX(), ball->GetPosY() }, ball->GetRadius(), rightPaddle->GetDimensions())) {
-			//std::cout << "Collision. Norm val: " << rightPaddle->GetNorm(ball->GetPosY()) << std::endl;
+
 			ball->SetUpdateTime();
 			ball->SetNormBool();
 			ball->SetNormRatio(rightPaddle->GetNorm(ball->GetPosY()));
